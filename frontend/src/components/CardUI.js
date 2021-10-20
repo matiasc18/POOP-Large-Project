@@ -1,4 +1,6 @@
+// MAYBE CHANGE THIS TO BE SIMILAR TO LOGIN.JS
 import React, { useState } from 'react';
+import axios from 'axios'
 
 function CardUI()
 {
@@ -11,21 +13,27 @@ function CardUI()
 
     var _ud = localStorage.getItem('user_data');
     var ud = JSON.parse(_ud);
-    var userId = ud.id;
+    var userId = ud. userId;
     var firstName = ud.firstName;
     var lastName = ud.lastName;
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
 
     const addCard = async event => 
     {
         event.preventDefault();
 
-        var obj = {userId:userId,card:card.value};
+        var tok = storage.retrieveToken();
+        var obj = {userId:userId,card:card.value,jwtToken:tok};
         var js = JSON.stringify(obj);
 
         try
         {
-            const response = await fetch(buildPath('api/addcard'),
-            //const response = await fetch('http://localhost:5000/api/addcard',
+             // New
+            var bp = require('./Path.js');
+
+            const response = await fetch(bp.buildPath('api/addcard'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var txt = await response.text();
@@ -50,13 +58,16 @@ function CardUI()
     {
         event.preventDefault();
 
-        var obj = {userId:userId,search:search.value};
+        var tok = storage.retrieveToken();
+        var obj = {userId:userId,search:search.value,jwtToken:tok};
         var js = JSON.stringify(obj);
 
         try
         {
-            const response = await fetch(buildPath('api/searchcards'),
-            //const response = await fetch('http://localhost:5000/api/searchcards',
+             // New
+            var bp = require('./Path.js');
+
+            const response = await fetch(bp.buildPath('api/searchcards'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var txt = await response.text();
