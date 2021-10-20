@@ -1,10 +1,11 @@
-//load user model
-const User = require("./models/user.js");
-//load card model
-const Card = require("./models/card.js");
 
 exports.setApp = function ( app, client )
-{   
+{
+    //load user model
+    const User = require("./models/user.js");
+    //load card model
+    const Card = require("./models/card.js");   
+
     var token = require('./createJWT.js');
 
     app.post('/api/addcard', async (req, res, next) =>
@@ -129,7 +130,6 @@ exports.setApp = function ( app, client )
       //const db = client.db();
       //const results = await db.collection('Cards').find({ "Card": { $regex: _search + '.*', $options: 'r' } }).toArray();
       const results = await Card.find({ "Card": { $regex: _search + '.*', $options: 'r' } });
-
 
       var _ret = [];
       for( var i=0; i<results.length; i++ )
