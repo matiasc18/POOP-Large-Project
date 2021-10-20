@@ -6,7 +6,7 @@ const Card = require("./models/card.js");
 exports.setApp = function ( app, client )
 {   
     var token = require('./createJWT.js');
-    
+
     app.post('/api/addcard', async (req, res, next) =>
     {
       // incoming: userId, color
