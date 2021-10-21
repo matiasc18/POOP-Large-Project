@@ -1,11 +1,10 @@
+//load user model
+const User = require("./models/user.js");
+//load card model
+const Card = require("./models/card.js");   
 
 exports.setApp = function ( app, client )
 {
-    //load user model
-    const User = require("./models/user.js");
-    //load card model
-    const Card = require("./models/card.js");   
-
     var token = require('./createJWT.js');
 
     app.post('/api/addcard', async (req, res, next) =>
@@ -98,7 +97,7 @@ exports.setApp = function ( app, client )
       {
           ret = {error:"Login/Password incorrect"};
       }
-
+      
       res.status(200).json(ret);
     });
 
