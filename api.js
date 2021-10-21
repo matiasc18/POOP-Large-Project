@@ -1,11 +1,12 @@
 //load user model
-const User = require("./models/user.js");
+const User = require("./models/user.model.js");
 //load card model
-const Card = require("./models/card.js");   
+const Card = require("./models/card.model.js");   
+
+var token = require('./createJWT.js');
 
 exports.setApp = function ( app, client )
 {
-    var token = require('./createJWT.js');
 
     app.post('/api/addcard', async (req, res, next) =>
     {
@@ -28,14 +29,14 @@ exports.setApp = function ( app, client )
         console.log(e.message);
       }
 
-      //const newCard = { Card: card, UserId: userId };
+        //const newCard = { Card: card, UserId: userId };
         const newCard = new Card({ Card: card, UserId: userId });
         var error = '';
 
         try 
         {
-            // const db = client.db();
-            // const result = db.collection('Cards').insertOne(newCard);
+            //const db = client.db();
+            //const result = db.collection('Cards').insertOne(newCard);
             newCard.save();
         }
         catch (e) 
@@ -97,7 +98,7 @@ exports.setApp = function ( app, client )
       {
           ret = {error:"Login/Password incorrect"};
       }
-      
+
       res.status(200).json(ret);
     });
 
