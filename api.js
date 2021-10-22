@@ -1,7 +1,7 @@
 //load user model
-const User = require("./models/user.model.js");
+const User = require("./models/user.js");
 //load card model
-const Card = require("./models/card.model.js");   
+const Card = require("./models/card.js");   
 
 var token = require('./createJWT.js');
 
@@ -104,9 +104,10 @@ exports.setApp = function ( app, client )
 
     app.post('/api/searchcards', async (req, res, next) => 
     {
-      // incoming: userId, search
+      // incoming: userId, search, jwtToken
       // outgoing: results[], error    
 
+      var token = require('./createJWT.js');
       var error = '';
 
       const { userId, search, jwtToken } = req.body;
@@ -123,13 +124,14 @@ exports.setApp = function ( app, client )
       catch(e)
       {
         console.log(e.message);
-      }
+      } 
 
       var _search = search.trim();
 
       //const db = client.db();
       //const results = await db.collection('Cards').find({ "Card": { $regex: _search + '.*', $options: 'r' } }).toArray();
-      const results = await Card.find({ "Card": { $regex: _search + '.*', $options: 'r' } });
+      //const results = await Card.find({ "Card": { $regex: _search + '.*', $options: 'r'} });
+      const results = await Card.find({Card: {$regex: _search + '.*', $options: 'r', }, UserId: userId});
 
       var _ret = [];
       for( var i=0; i<results.length; i++ )

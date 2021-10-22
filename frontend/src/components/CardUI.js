@@ -109,6 +109,6 @@ function CardUI()
       </div>
       
     );
-}; //MAYBE REMOVE THE ;
+};
 
 export default CardUI;
