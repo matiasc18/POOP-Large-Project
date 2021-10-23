@@ -6,7 +6,7 @@ You are able to log in, search for cards, and add cards (per each user.)
 
 ## Installing dependencies
 This is missing the node_modules folder, since it was in the .gitignore (really big folders), when running it on your own pc
-make sure to install the dependencies with 'npm install' in both the root directory and the /frontend directory of. There are 
+make sure to install the dependencies with 'npm install' in both the root directory and the /frontend directory. There are 
 vulnerabilities when doing this, but the program works as intended.
 
 ## Getting it running locally
