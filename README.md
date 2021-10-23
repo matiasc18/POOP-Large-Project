@@ -13,15 +13,16 @@ vulnerabilities when doing this, but the program works as intended.
 This is made to work locally, run npm start from the root directory first, and then again from the frontend directory to get 
 fully running.
 
-This is also missing the .env file in the cards directory, which are the environmental variables both for connecting to mongodb
+This is also missing the .env file in the cards directory, which are the environmental variables both for connecting to MongoDB
 and for using json web tokens.
 
-If you're gonna test this locally on your pc, make sure to add a .env file with 2 variables: MONGODB_URI and ACCESS_TOKEN_SECRET
-The first variable should be set to your mongodb connection string, which you get when creating a cluster with mongodb and clicking 
-the "connect" option and the second variable can be set to whatever you wish, it's for creating and decoding jwt tokens.
+If you're gonna test this locally on your pc, make sure to add a .env file to the root directory with 2 variables: MONGODB_URI and 
+ACCESS_TOKEN_SECRET. The first variable should be set to your MongoDB connection string, which you get when creating a cluster with 
+MongoDB and clicking the "connect" option and the second variable can be set to whatever you wish, it's for creating and decoding jwt
+tokens.
 
 ## Getting it running on Heroku
 If you want to test it on Heroku, in the 'Path.js' file, set 'const app_name' equal to the name of your Heroku app. Also, add the .env 
-variables into Heroku as explained in MERN-B.
+variables into Heroku as explained in MERN-B, and follow the instructions on MERN-B for deploying on Heroku.
 
 This might be really confusing so if you have any questions just ask me in the Discord and I'll try to help.
