@@ -17,9 +17,11 @@
  - This is also missing the .env file in the cards directory, which are the environmental variables both for connecting to MongoDB
    and for using json web tokens.
  - If you're gonna test this locally on your pc, make sure to add a .env file to the root directory with 2 variables: MONGODB_URI and 
-   ACCESS_TOKEN_SECRET. The first variable should be set to your MongoDB connection string, which you get when creating a cluster with 
-   MongoDB and clicking the "connect" option and the second variable can be set to whatever you wish, it's for creating and decoding jwt
-   tokens.
+   ACCESS_TOKEN_SECRET. 
+    - MONGODB_URI should be set to your MongoDB connection string, which you 
+      get when creating a cluster with MongoDB and clicking the "connect" option. 
+    - ACCESS_TOKEN_SECRET can be set to whatever you wish, it's for creating 
+      and decoding jwt tokens.
 
 ## Getting it running on Heroku
 
