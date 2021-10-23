@@ -20,4 +20,8 @@ If you're gonna test this locally on your pc, make sure to add a .env file with 
 The first variable should be set to your mongodb connection string, which you get when creating a cluster with mongodb and clicking 
 the "connect" option and the second variable can be set to whatever you wish, it's for creating and decoding jwt tokens.
 
+### Getting it running on Heroku
+If you want to test it on Heroku, in the 'Path.js' file, set 'const app_name' equal to the name of your Heroku app. Also, add the .env 
+variables into Heroku as explained in MERN-B.
+
 This might be really confusing so if you have any questions just ask me in the Discord and I'll try to help.
