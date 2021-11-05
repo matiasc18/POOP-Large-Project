@@ -48,7 +48,6 @@ function Login()
                 var lastName = ud.payload.lastName;
                 
                 var user = {firstName:firstName,lastName:lastName,userId:userId}
-                //var user = {firstName:firstName,lastName:lastName,id:userId}
                 localStorage.setItem('user_data', JSON.stringify(user));
                 window.location.href = '/cards';
             }
@@ -65,7 +64,7 @@ function Login()
         <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c}  /><br />
         <input type="password" id="loginPassword" placeholder="Password" ref={(c) => 
           loginPassword = c} /><br />
-        <input type="submit" id="loginButton" class="buttons" value = "Do It"
+        <input type="submit" id="loginButton" class="buttons" value = "Login"
           onClick={doLogin} />
         <span id="loginResult">{message}</span>
      </div>
