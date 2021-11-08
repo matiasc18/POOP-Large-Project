@@ -3,14 +3,15 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const UserSchema = new Schema({
-  UserId: {
-    type: Number,
-  },
   FirstName: {
     type: String,
     required: true
   },
   LastName: {
+    type: String,
+    required: true
+  },
+  Email: {
     type: String,
     required: true
   },

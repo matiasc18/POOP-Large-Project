@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 
-import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
 import CardPage from './pages/CardPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() 
 {
@@ -11,7 +12,10 @@ function App()
     <Router >
       <Switch>
         <Route path="/" exact>
-          <LoginPage />
+          <HomePage />
+        </Route>
+        <Route path="/register" exact>
+          <RegisterPage />
         </Route>
         <Route path="/cards" exact>
           <CardPage />

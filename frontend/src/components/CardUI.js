@@ -1,10 +1,14 @@
-// MAYBE CHANGE THIS TO BE SIMILAR TO LOGIN.JS
 import React, { useState } from 'react';
 import axios from 'axios'
 
 function CardUI()
 {
-    var card = '';
+    var exerciseName = '';
+    var exerciseType = '';
+    var lowerRepRange;
+    var upperRepRange;
+    var strengthWeight;
+    var cardioTime;
     var search = '';
 
     const [message,setMessage] = useState('');
@@ -14,26 +18,26 @@ function CardUI()
     var _ud = localStorage.getItem('user_data');
     var ud = JSON.parse(_ud);
     var userId = ud.userId;
-    var firstName = ud.firstName;
-    var lastName = ud.lastName;
+
 
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
-    const addCard = async event => 
+    const addExercise = async event => 
     {
         event.preventDefault();
 
         var tok = storage.retrieveToken();
-        var obj = {userId:userId,card:card.value,jwtToken:tok};
+        var obj = {userId:userId,exerciseName:exerciseName.value,exerciseType:exerciseType.value,
+                    lowerRepRange:lowerRepRange.value,upperRepRange:upperRepRange.value,
+                    strengthWeight:strengthWeight.value,cardioTime:cardioTime.value,jwtToken:tok};
         var js = JSON.stringify(obj);
 
         try
         {
-             // New
             var bp = require('./Path.js');
 
-            const response = await fetch(bp.buildPath('api/addcard'),
+            const response = await fetch(bp.buildPath('api/addexercise'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var txt = await response.text();
@@ -45,7 +49,7 @@ function CardUI()
             }
             else
             {
-                setMessage('Card has been added');
+                setMessage('Exercise has been added');
             }
         }
         catch(e)
@@ -54,7 +58,7 @@ function CardUI()
         }
     };
 
-    const searchCard = async event => 
+    const searchExercise = async event => 
     {
         event.preventDefault();
 
@@ -82,7 +86,7 @@ function CardUI()
                     resultText += ', ';
                 }
             }
-            setResults('Card(s) have been retrieved');
+            setResults('Exercise(s) have been retrieved');
             setCardList(resultText);
         }
         catch(e)
@@ -97,17 +101,26 @@ function CardUI()
         <br />
         <input type="text" id="searchText" placeholder="Card To Search For" 
           ref={(c) => search = c} />
-        <button type="button" id="searchCardButton" class="buttons" 
-          onClick={searchCard}> Search Card</button><br />
+        <button type="button" id="searchExerciseButton" class="buttons" 
+          onClick={searchExercise}> Search Exercise(s)</button><br />
         <span id="cardSearchResult">{searchResults}</span>
         <p id="cardList">{cardList}</p><br /><br />
-        <input type="text" id="cardText" placeholder="Card To Add" 
-          ref={(c) => card = c} />
-        <button type="button" id="addCardButton" class="buttons" 
-          onClick={addCard}> Add Card </button><br />
+        <input type="text" id="exerciseText" placeholder="Exercise to Add" 
+          ref={(c) => exerciseName = c} />
+        <input type="text" id="exerciseType" placeholder="Exercise Type" 
+          ref={(c) => exerciseType = c} />
+        <input type="text" id="lowerRepRange" placeholder="Lower Rep Range (If strength)" 
+          ref={(c) => lowerRepRange = c} />
+        <input type="text" id="upperRepRange" placeholder="Upper Rep Range (If strength)" 
+          ref={(c) => upperRepRange = c} />
+        <input type="text" id="strengthWeight" placeholder="Weight to Add" 
+          ref={(c) => strengthWeight = c} />
+        <input type="text" id="cardioTime" placeholder="Cardio Time" 
+          ref={(c) => cardioTime = c} />
+        <button type="button" id="addExerciseButton" class="buttons" 
+          onClick={addExercise}> Add Exercise </button><br />
         <span id="cardAddResult">{message}</span>
       </div>
-      
     );
 };
 
