@@ -71,7 +71,7 @@ function Register()
         <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c}  /><br />
         <input type="password" id="loginPassword" placeholder="Password" ref={(c) => 
           loginPassword = c} /><br />
-        <input type="submit" id="loginButton" class="buttons" value = "Register"
+        <input type="submit" id="loginButton" className="buttons" value = "Register"
           onClick={doRegister} />
         <span id="loginResult">{message}</span>
      </div>

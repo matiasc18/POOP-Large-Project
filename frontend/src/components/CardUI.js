@@ -101,7 +101,7 @@ function CardUI()
         <br />
         <input type="text" id="searchText" placeholder="Card To Search For" 
           ref={(c) => search = c} />
-        <button type="button" id="searchExerciseButton" class="buttons" 
+        <button type="button" id="searchExerciseButton" className="buttons" 
           onClick={searchExercise}> Search Exercise(s)</button><br />
         <span id="cardSearchResult">{searchResults}</span>
         <p id="cardList">{cardList}</p><br /><br />
@@ -117,7 +117,7 @@ function CardUI()
           ref={(c) => strengthWeight = c} />
         <input type="text" id="cardioTime" placeholder="Cardio Time" 
           ref={(c) => cardioTime = c} />
-        <button type="button" id="addExerciseButton" class="buttons" 
+        <button type="button" id="addExerciseButton" className="buttons" 
           onClick={addExercise}> Add Exercise </button><br />
         <span id="cardAddResult">{message}</span>
       </div>
