@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 function Register()
 {
     var bp = require('./Path.js');
@@ -64,16 +69,38 @@ function Register()
 
     return(
       <div id="loginDiv">
-        <span id="inner-title">PLEASE REGISTER</span><br />
-        <input type="text" id="firstName" placeholder="First Name" ref={(c) => firstName = c} /><br />
-        <input type="text" id="lastName" placeholder="Last Name" ref={(c) => lastName = c} /><br />
-        <input type="text" id="email" placeholder="Email" ref={(c) => email = c} /><br />
-        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c}  /><br />
-        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => 
-          loginPassword = c} /><br />
-        <input type="submit" id="loginButton" className="buttons" value = "Register"
-          onClick={doRegister} />
-        <span id="loginResult">{message}</span>
+        <Form>
+            <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridEmail">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control placeholder="First Name" ref={(c) => firstName = c} />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control placeholder="Last Name" ref={(c) => lastName = c} />
+                </Form.Group>
+            </Row>
+
+            <Form.Group className="mb-3" controlId="formGridAddress2">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control type="email" placeholder="Email Address" ref={(c) => email = c} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formGridAddress1">
+                <Form.Label>Login Name</Form.Label>
+                <Form.Control placeholder="Login Name" ref={(c) => loginName = c} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formGridAddress2">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c} />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" onClick={doRegister}>
+                Submit
+            </Button>
+        </Form>
      </div>
     );
 };

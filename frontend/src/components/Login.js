@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 function Login()
 {
     var bp = require('./Path.js');
@@ -60,13 +65,21 @@ function Login()
 
     return(
       <div id="loginDiv">
-        <span id="inner-title">PLEASE LOG IN</span><br />
-        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c}  /><br />
-        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => 
-          loginPassword = c} /><br />
-        <input type="submit" id="loginButton" className="buttons" value = "Login"
-          onClick={doLogin} />
-        <span id="loginResult">{message}</span>
+        <Form>
+            <Form.Group className="mb-3" controlId="formGridAddress1">
+                <Form.Label>Login Name</Form.Label>
+                <Form.Control placeholder="Login Name" ref={(c) => loginName = c} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formGridAddress2">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c} />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" onClick={doLogin}>
+                Submit
+            </Button>
+        </Form>
      </div>
     );
 };
