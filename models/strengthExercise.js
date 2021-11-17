@@ -22,7 +22,7 @@ const StrengthExerciseSchema = new Schema({
   StrengthWeight: {
     type: Number,
     required: false
-  },
+  }
 });
 
 module.exports = StrengthExercise = mongoose.model('StrengthExercises', StrengthExerciseSchema);

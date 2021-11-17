@@ -3,6 +3,7 @@ const User = require("./models/user.js");
 //load card model
 const StrengthExercise = require("./models/strengthExercise.js"); 
 const CardioExercise = require("./models/cardioExercise.js");
+const bcrypt = require("bcrypt");
 
 var token = require('./createJWT.js');
 
@@ -22,7 +23,7 @@ exports.setApp = function ( app, client )
 
       const { login, password } = req.body;
 
-      const results = await User.find({ Login: login, Password: password });
+      const results = await User.find({ Login: login});
 
       var id = -1;
       var fn = '';
@@ -31,7 +32,8 @@ exports.setApp = function ( app, client )
 
       var ret;
 
-      if( results.length > 0 )
+      // Only runs if there exists a user with correct login and correct hashed password
+      if( results.length > 0 && await bcrypt.compare(password, results[0].Password))
       {
         id = results[0]._id;
         fn = results[0].FirstName;
@@ -104,7 +106,7 @@ exports.setApp = function ( app, client )
     //////////////////////////////////////////////////////
     //                     CARDS                        //
     //////////////////////////////////////////////////////
-
+    
     app.post('/api/addexercise', async (req, res, next) =>
     {
       // incoming: userId, exerciseName, exerciseType, lowerRepRange,
