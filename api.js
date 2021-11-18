@@ -5,6 +5,7 @@ const StrengthExercise = require("./models/strengthExercise.js");
 const CardioExercise = require("./models/cardioExercise.js");
 
 var token = require('./createJWT.js');
+const { findByIdAndRemove, findByIdAndDelete, findByIdAndUpdate } = require("./models/user.js");
 
 exports.setApp = function ( app, client )
 {
@@ -235,4 +236,70 @@ exports.setApp = function ( app, client )
 
       res.status(200).json(ret);
     });
+
+    app.put('/api/edit', async (req, res, next) => 
+    {
+      // incoming: _id , exerciseName, exerciseType, lowerRepRange,
+      //           upperRepRange, strengthWeight, cardioTime, jwtToken
+      // outgoing: error
+      
+      const {_id, exerciseName, exerciseType, lowerRepRange, upperRepRange, strengthWeight, cardioTime, jwtToken } = req.body;
+
+      try
+      {
+        if( token.isExpired(jwtToken))
+        {
+          var r = {error:'The JWT is no longer valid', jwtToken: ''};
+          res.status(200).json(r);
+          return;
+        }
+      }
+      catch(e)
+      {
+        console.log(e.message);
+      }
+
+        var error = '';
+        //Edit exerciseName, lowerRepRange, upperRepRange, strengthWeight, cardioTime to the exercise Type (strenght or cardio)
+        try
+        {
+          if (exerciseType.toLowerCase() === "strength")
+            {
+              // Edit  streght exercise
+              await StrengthExercise.findById(_id,(error, StrenghtEdit) =>
+              { 
+                StrenghtEdit.ExerciseName =  String(exerciseName), StrenghtEdit.LowerRepRange = Number(lowerRepRange), StrenghtEdit.UpperRepRange = Number(upperRepRange), StrenghtEdit.StrengthWeight = Number(strengthWeight)
+                StrenghtEdit.save();
+              });
+            }
+            else if (exerciseType.toLowerCase() === "cardio")
+            {
+              // Edit  cardio exercise
+              await CardioExercise.findById(_id,(error, CardioEdit) => 
+              { 
+                CardioEdit.ExerciseName = String(exerciseName), CardioEdit.CardioTime = Number(cardioTime)     
+                CardioEdit.save();
+              });  
+            }  
+        }
+        catch (e) 
+        {
+            error = e.toString();
+        }
+
+      var refreshedToken = null;
+      try
+      {
+        refreshedToken = token.refresh(jwtToken);
+      }
+      catch(e)
+      {
+        console.log(e.message);
+      }
+
+      var ret = { error: error, jwtToken: refreshedToken };
+
+      res.status(200).json(ret);
+    });
+
 }
