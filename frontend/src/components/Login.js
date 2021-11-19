@@ -19,6 +19,7 @@ function Login()
     const doLogin = async event => 
     {
         event.preventDefault();
+        printf("Login request recieved");
 
         var obj = {login:loginName.value,password:loginPassword.value};
         var js = JSON.stringify(obj);

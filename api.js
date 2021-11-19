@@ -20,6 +20,9 @@ exports.setApp = function ( app, client )
 
       var error = '';
 
+      console.log("Login request recieved");
+      console.log(req.body);
+
       const { login, password } = req.body;
 
       const results = await User.find({ Login: login, Password: password });
@@ -42,6 +45,7 @@ exports.setApp = function ( app, client )
         {
           const token = require("./createJWT.js");
           ret = token.createToken( fn, ln, id, em );
+          console.log("Creating token");
         }
         catch(e)
         {

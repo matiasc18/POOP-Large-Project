@@ -12,8 +12,7 @@ app.use(express.json());
 //app.use(bodyParser.json()); use if using an older version of node without express.json() support
 
 require('dotenv').config();
-const url = "mongodb+srv://RickLeinecker:COP4331Rocks@cluster0-4pisv.mongodb.net/COP4331?retryWrites=true&w=majority";
-// const url = process.env.MONGODB_URI;
+const url = process.env.MONGODB_URI;
 const mongoose = require("mongoose");
 mongoose.connect(url)
   .then(() => console.log("Mongo DB connected"))
