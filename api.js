@@ -5,7 +5,7 @@ const StrengthExercise = require("./models/strengthExercise.js");
 const CardioExercise = require("./models/cardioExercise.js");
 
 var token = require('./createJWT.js');
-const { findByIdAndRemove, findByIdAndDelete, findByIdAndUpdate } = require("./models/user.js");
+const { findById, findByIdAndDelete} = require("./models/user.js");
 
 exports.setApp = function ( app, client )
 {
@@ -281,6 +281,54 @@ exports.setApp = function ( app, client )
                 CardioEdit.save();
               });  
             }  
+        }
+        catch (e) 
+        {
+            error = e.toString();
+        }
+
+      var refreshedToken = null;
+      try
+      {
+        refreshedToken = token.refresh(jwtToken);
+      }
+      catch(e)
+      {
+        console.log(e.message);
+      }
+
+      var ret = { error: error, jwtToken: refreshedToken };
+
+      res.status(200).json(ret);
+    });
+     
+    app.delete('/api/delete/', async (req, res, next) => 
+    {
+      // incoming: _id, jwtToken
+      // outgoing: error
+      const {_id, jwtToken } = req.body;
+      
+      
+      try
+      {
+        if( token.isExpired(jwtToken))
+        {
+          var r = {error:'The JWT is no longer valid', jwtToken: ''};
+          res.status(200).json(r);
+          return;
+        }
+      }
+      catch(e)
+      {
+        console.log(e.message);
+      }
+
+        var error = '';
+        //DELETE _Id-objectID to the exercise Type (strenght or cardio)
+        try
+        {
+          await StrengthExercise.findByIdAndDelete(_id);
+          await CardioExercise.findByIdAndDelete(_id); 
         }
         catch (e) 
         {
