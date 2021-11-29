@@ -33,28 +33,29 @@ function Login()
             .then(function (response) 
         {
             var res = response.data;
-            if (res.error) 
-            {
-                setMessage('User/Password combination incorrect');
-            }
-            else 
-            {
-                storage.storeToken(res);
-                var jwt = require('jsonwebtoken');
 
-                var ud = jwt.decode(storage.retrieveToken(),{complete:true});
-                var userId = ud.payload.userId;
-                var firstName = ud.payload.firstName;
-                var lastName = ud.payload.lastName;
+            // If login was successful, log the user in
+            setMessage('Successfully logged in');
+            storage.storeToken(res.jwtToken);
+            var jwt = require('jsonwebtoken');
+
+            var ud = jwt.decode(storage.retrieveToken(),{complete:true});
+            var userId = ud.payload.userId;
+            var firstName = ud.payload.firstName;
+            var lastName = ud.payload.lastName;
                 
-                var user = {firstName:firstName,lastName:lastName,userId:userId}
-                localStorage.setItem('user_data', JSON.stringify(user));
-                window.location.href = '/cards';
-            }
+            var user = {firstName:firstName,lastName:lastName,userId:userId}
+            localStorage.setItem('user_data', JSON.stringify(user));
+            window.location.href = '/cards';
+
         })
         .catch(function (error) 
         {
-            console.log(error);
+            // If there was an error in logging in, show the user the error
+            if (error.response)
+            {
+                setMessage(error.response.status + ' Error: ' + error.response.data.error);
+            }
         });
     }
 
@@ -66,6 +67,7 @@ function Login()
           loginPassword = c} /><br />
         <input type="submit" id="loginButton" class="buttons" value = "Login"
           onClick={doLogin} />
+        <br/>
         <span id="loginResult">{message}</span>
      </div>
     );
