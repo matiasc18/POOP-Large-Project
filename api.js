@@ -342,7 +342,7 @@ exports.setApp = function ( app, client )
       res.status(200).send(ret);
       
     });
-
+    
     // EXERCISES    
     app.post('/api/addexercise', async (req, res, next) =>
     {
@@ -425,7 +425,6 @@ exports.setApp = function ( app, client )
         {
           var r = {results: '', error:'The JWT is no longer valid', jwtToken: ''};
           res.status(200).json(r);
-          return;
         }
       }
       catch(e)
@@ -480,20 +479,20 @@ exports.setApp = function ( app, client )
       res.status(200).json(ret);
     });
 
-    app.put('/api/edit', async (req, res, next) => 
+    app.patch('/api/edit', async (req, res, next) => 
     {
-      // incoming: _id , exerciseName, exerciseType, lowerRepRange,
+      // incoming: _id , exerciseName, lowerRepRange, upper
       //           upperRepRange, strengthWeight, cardioTime, jwtToken
-      // outgoing: error
+      // outgoing: error, jwtToken
       
-      const {_id, exerciseName, exerciseType, lowerRepRange, upperRepRange, strengthWeight, cardioTime, jwtToken } = req.body;
+      const edits = req.body;
 
       try
       {
-        if( token.isExpired(jwtToken))
+        if( token.isExpired(edits.jwtToken))
         {
-          var r = {error:'The JWT is no longer valid', jwtToken: ''};
-          res.status(200).json(r);
+          var ret = {error:'The JWT is no longer valid', jwtToken: ''};
+          res.status(401).json(ret);
           return;
         }
       }
@@ -502,38 +501,23 @@ exports.setApp = function ( app, client )
         console.log(e.message);
       }
 
-        var error = '';
-        //Edit exerciseName, lowerRepRange, upperRepRange, strengthWeight, cardioTime to the exercise Type (strenght or cardio)
-        try
-        {
-          if (exerciseType.toLowerCase() === "strength")
-            {
-              // Edit  streght exercise
-              await StrengthExercise.findById(_id,(error, StrenghtEdit) =>
-              { 
-                StrenghtEdit.ExerciseName =  String(exerciseName), StrenghtEdit.LowerRepRange = Number(lowerRepRange), StrenghtEdit.UpperRepRange = Number(upperRepRange), StrenghtEdit.StrengthWeight = Number(strengthWeight)
-                StrenghtEdit.save();
-              });
-            }
-            else if (exerciseType.toLowerCase() === "cardio")
-            {
-              // Edit  cardio exercise
-              await CardioExercise.findById(_id,(error, CardioEdit) => 
-              { 
-                CardioEdit.ExerciseName = String(exerciseName), CardioEdit.CardioTime = Number(cardioTime)     
-                CardioEdit.save();
-              });  
-            }  
-        }
-        catch (e) 
-        {
-            error = e.toString();
-        }
+      var error = '';
+
+      // Will either edit a strengthExercise or cardioExercise based on id from request
+      try
+      {
+        await StrengthExercise.findByIdAndUpdate(edits._id, edits);
+        await CardioExercise.findByIdAndUpdate(edits._id, edits);
+      }
+      catch (e) 
+      {
+          error = e.toString();
+      }
 
       var refreshedToken = null;
       try
       {
-        refreshedToken = token.refresh(jwtToken);
+        refreshedToken = token.refresh(edits.jwtToken);
       }
       catch(e)
       {
@@ -551,7 +535,6 @@ exports.setApp = function ( app, client )
       // outgoing: error
       const {_id, jwtToken } = req.body;
       
-      
       try
       {
         if( token.isExpired(jwtToken))
@@ -567,7 +550,8 @@ exports.setApp = function ( app, client )
       }
 
         var error = '';
-        //DELETE _Id-objectID to the exercise Type (strenght or cardio)
+
+        //DELETE _id-objectId to the exercise Type (strenght or cardio)
         try
         {
           await StrengthExercise.findByIdAndDelete(_id);
