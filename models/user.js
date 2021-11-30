@@ -23,15 +23,23 @@ const UserSchema = new Schema({
   Password: {
     type: String,
     required: true
+  },
+  IsVerified: {
+    type: Boolean,
+    required: true
   }
 });
 
 // function runs right before the new user document is saved
 // hashes the user's password before adding into DB
 UserSchema.pre('save', async function (next){
-    const salt = await bcrypt.genSalt();
-    this.Password = await bcrypt.hash(this.Password, salt);
-    next();
+  // Only hashes the password when the user is first created
+  // Prevents password from being re-hashed when user is verified
+  if (this.IsVerified == false)
+  {
+    this.Password = await bcrypt.hash(this.Password, 10);
+  }
+  next();
 });
 
 module.exports = user = mongoose.model("Users", UserSchema);

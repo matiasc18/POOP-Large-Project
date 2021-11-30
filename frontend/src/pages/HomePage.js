@@ -10,6 +10,7 @@ const HomePage = () =>
       <div>
         <PageTitle />
         <Login />
+        <br/>
         <Register />
       </div>
     );

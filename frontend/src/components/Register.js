@@ -35,30 +35,14 @@ function Register()
         axios(config)
             .then(function (response) 
         {
-            var res = response.data;
-            if (res.error) 
-            {
-                setMessage('Login already exists');
-            }
-            else 
-            {
-                storage.storeToken(res);
-                var jwt = require('jsonwebtoken');
-
-                var ud = jwt.decode(storage.retrieveToken(),{complete:true});
-                var userId = ud.payload.userId;
-                var firstName = ud.payload.firstName;
-                var lastName = ud.payload.lastName;
-                var email = ud.payload.email;
-                
-                var user = {firstName:firstName,lastName:lastName,userId:userId, email:email}
-                localStorage.setItem('user_data', JSON.stringify(user));
-                window.location.href = '/cards';
-            }
+            setMessage('Verification email sent to your account.')
         })
         .catch(function (error) 
         {
-            console.log(error);
+            if (error.response)
+            {
+                setMessage(error.response.status + ' Error: ' + error.response.data.error);
+            }
         });
     }
 

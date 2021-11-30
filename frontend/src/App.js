@@ -5,6 +5,8 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() 
 {
@@ -19,6 +21,12 @@ function App()
         </Route>
         <Route path="/cards" exact>
           <CardPage />
+        </Route>
+        <Route path="/forgotpassword" exact>
+          <ForgotPasswordPage />
+        </Route>
+        <Route path="/resetpassword" >
+          <ResetPasswordPage />
         </Route>
         <Redirect to="/" />
       </Switch>  
