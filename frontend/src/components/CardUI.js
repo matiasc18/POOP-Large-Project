@@ -13,7 +13,7 @@ function CardUI()
 
     const [message,setMessage] = useState('');
     const [searchResults,setResults] = useState('');
-    const [cardList,setCardList] = useState('');
+    const [cardList,setCardList] = useState([]);
 
     var _ud = localStorage.getItem('user_data');
     var ud = JSON.parse(_ud);
@@ -76,18 +76,10 @@ function CardUI()
 
             var txt = await response.text();
             var res = JSON.parse(txt);
-            var _results = res.results;
-            var resultText = '';
-            for( var i=0; i<_results.length; i++ )
-            {
-                resultText += _results[i];
-                if( i < _results.length - 1 )
-                {
-                    resultText += ', ';
-                }
-            }
+            var results = res.results;
+
             setResults('Exercise(s) have been retrieved');
-            setCardList(resultText);
+            setCardList(results);
         }
         catch(e)
         {
@@ -104,7 +96,12 @@ function CardUI()
         <button type="button" id="searchExerciseButton" class="buttons" 
           onClick={searchExercise}> Search Exercise(s)</button><br />
         <span id="cardSearchResult">{searchResults}</span>
-        <p id="cardList">{cardList}</p><br /><br />
+        <div id="cardList">
+         {
+            cardList.map(c => 
+            <div key={c._id}>{c.ExerciseName}</div>
+          )}
+        </div>
         <input type="text" id="exerciseText" placeholder="Exercise to Add" 
           ref={(c) => exerciseName = c} />
         <input type="text" id="exerciseType" placeholder="Exercise Type" 

@@ -31,30 +31,37 @@ function ForgotPassword()
             .then(function (response) 
         {
             var res = response.data;
-            if (res.error) 
-            {
-                setMessage(res.error);
-            }
+            setMessage('Password reset link sent to ' + obj.email);
         })
         .catch(function (error) 
         {
-            console.log(error);
+            if (error.response)
+            {
+              setMessage(error.response.status + ' Error: ' + error.response.data.error);
+            }
         });
     }
 
    return(
-     <body>
-      <h1 id="title">Reset password</h1>
-      <form action="" methods="POST">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Email" ref={(c) => 
-          email = c} /><br />
-        <br />
-        <input type="submit" id="emailButton" class="buttons" value = "Submit Email"
-          onClick={doPasswordForget} />
-      </form>
-     </body>
+     <div>
+       <p class="lead">Please provide your email address below.</p>
+       <p class="text-muted"><small>You will receive an email with a password reset link.</small></p>
+        <form action="" methods="POST">
+          <div class="input-group mb-4">
+            <span class="input-group-text p-2">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input type="email" id="email" class="form-control" placeholder="Email" ref={(c) => 
+              email = c}/>
+          </div>
+        </form>
+        <div class="d-grid mb-2">
+          <span class="text-success text-center" id="doPasswordForgetResult"><small>{message}</small></span>
+          <a onClick={doPasswordForget} class="btn btn-primary rounded-pill btn-block btn-sm text-uppercase fw-bold btn-block">Forget Password</a>
+        </div>
+      </div>
    );
 };
 
 export default ForgotPassword;
+
