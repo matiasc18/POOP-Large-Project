@@ -1,3 +1,7 @@
+# CURRENTLY!!!!!
+ - The main branch as of 11/30/21 @ 6:00pm is the most up-to-date branch, including the entire starting template modified to work with
+   strength and cardio exercises (as opposed to just cards from the template,) this version has add, search, login, and register endpoints
+   complete, as well as the template for the MongoDB schema (models folder).
 
 # LargePoopProject
 
