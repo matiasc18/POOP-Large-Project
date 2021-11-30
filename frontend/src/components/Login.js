@@ -60,17 +60,38 @@ function Login()
     }
 
     return(
-      <div id="loginDiv">
-        <span id="inner-title">PLEASE LOG IN</span><br />
-        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c}  /><br />
-        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => 
-          loginPassword = c} /><br />
-        <input type="submit" id="loginButton" class="buttons" value = "Login"
-          onClick={doLogin} />
-        <br/>
-        <span id="loginResult">{message}</span>
-     </div>
+			<form>
+        <label for="userName" class="form-label"></label>
+        <div class="input-group mb-1">
+          <span class="input-group-text p-2">
+            <i class="bi bi-person-badge-fill"></i>
+          </span>
+          <input type="text" id="loginName" class="form-control" placeholder="Username" ref={(c) => 
+            loginName = c}/>
+        </div>
+
+        <label for="password" class="form-label"></label>
+        <div class="input-group mb-4">
+          <span class="input-group-text p-2">
+            <i class="bi bi-lock-fill"></i>
+          </span>
+          <input type="password" id="loginPassword" class="form-control" placeholder="Password" ref={(c) => 
+            loginPassword = c} />
+          <span class="input-group-text">
+            <span class="tt" data-bs-placement="bottom" title="Enter an email address we can reply to.">
+              <i class="bi bi-question-circle text-muted"></i>
+            </span>
+          </span>
+        </div>
+        <div class="text-center">
+          <div class="d-grid mb-2">
+            <span id="loginResult">{message}</span>
+				      <a onClick={doLogin} class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold">Login</a>
+          </div>
+        </div>
+			</form>
     );
 };
 
 export default Login;
+

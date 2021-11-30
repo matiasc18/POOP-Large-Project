@@ -40,6 +40,7 @@ function ResetPassword()
         {
             var res = response.data;
             setMessage('Successfully reset password');
+            window.location.href = '/';
         })
         .catch(function (error) 
         {
@@ -51,14 +52,23 @@ function ResetPassword()
 
    return(
     
-    <div id="resetPasswordDiv">
-    <span id="inner-title">Reset your password</span><br />
-    <input type="password" id="newPassword" placeholder="New Password" ref={(c) => 
-      newPassword = c} /><br />
-    <input type="submit" id="passwordResetButton" class="buttons" value = "Reset Password"
-      onClick={doPasswordReset} />
-    <span id="passwordResetResult">{message}</span>
-    </div>
+      <div id="resetPasswordDiv">
+        <label for="password" class="form-label"></label>
+        <div class="input-group mb-4">
+          <span class="input-group-text p-2">
+            <i class="bi bi-lock-fill"></i>
+          </span>
+          <input type="password" id="newPassword" class="form-control" placeholder="Password" ref={(c) => 
+            newPassword = c} />
+        </div>
+        <div class="text-center">
+          <div class="d-grid mb-2">
+            <a onClick={doPasswordReset} class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold">Reset Password</a>
+            <br/>
+            <span id="passwordResetResult">{message}</span>
+          </div>
+        </div>
+      </div>
    );
 };
 

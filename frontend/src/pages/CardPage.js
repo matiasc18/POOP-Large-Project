@@ -12,6 +12,7 @@ const CardPage = () =>
             <LoggedInName />
             <CardUI />
         </div>
+
     );
 }
 
