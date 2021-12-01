@@ -17,9 +17,9 @@ function LoggedInName()
     };
 
   return(
-   <div id="loggedInDiv">
-   <span id="userName">Logged In As {firstName} {lastName}</span><br />
-   <button type="button" id="logoutButton" class="buttons" 
+   <div class="container" id="loggedInDiv">
+   <p class="display-6 fw-bold text-success text-end" id="userName"><small>Logged in as {firstName} {lastName}</small></p><br />
+   <button class="btn btn-danger rounded-pill border-5 border-light btn-block btn-sm text-uppercase fw-bold btn-block" style={{float: 'right'}} id="logoutButton" 
      onClick={doLogout}> Log Out </button>
    </div>
   );

@@ -54,7 +54,7 @@ function Login()
             // If there was an error in logging in, show the user the error
             if (error.response)
             {
-                setMessage(error.response.status + ' Error: ' + error.response.data.error);
+                setMessage('Error: ' + error.response.data.error);
             }
         });
     }
@@ -85,8 +85,8 @@ function Login()
         </div>
         <div class="text-center">
           <div class="d-grid mb-2">
-            <span id="loginResult">{message}</span>
-				      <a onClick={doLogin} class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold">Login</a>
+            <span class="text-danger" id="loginResult">{message}</span>
+				      <a onClick={doLogin} class="btn btn-success rounded-pill mt-3 btn-login text-uppercase fw-bold">Login</a>
           </div>
         </div>
 			</form>

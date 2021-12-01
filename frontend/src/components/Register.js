@@ -41,7 +41,7 @@ function Register()
         {
             if (error.response)
             {
-                setMessage(error.response.status + ' Error: ' + error.response.data.error);
+                setMessage('Error: ' + error.response.data.error);
             }
         });
     }
@@ -113,8 +113,8 @@ function Register()
         </div>
         <div class="text-center">
         <div class="d-grid">
-				<a onClick={doRegister} class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold">Register</a>
-        <span id="registerResult">{message}</span>
+				<a onClick={doRegister} class="btn btn-success rounded-pill mb-3 btn-login text-uppercase fw-bold">Register</a>
+        <span class="text-danger" id="registerResult">{message}</span>
         </div>
         </div>
 		</form>
