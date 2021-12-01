@@ -352,6 +352,7 @@ exports.setApp = function ( app, client )
       
       const { userId, exerciseName, exerciseType, lowerRepRange, upperRepRange, strengthWeight, cardioTime, jwtToken } = req.body;
       var ret = '';
+      console.log(req.body);
 
       try
       {
@@ -475,6 +476,64 @@ exports.setApp = function ( app, client )
       }
 
       var ret = { results:_ret, error: '', jwtToken: refreshedToken };
+
+      res.status(200).json(ret);
+    });
+
+    app.post('/api/searchspecific', async (req, res, next) => 
+    {
+      // incoming: userId, search, jwtToken
+      // outgoing: results[], error, jwtToken    
+
+      var error = '';
+
+      const { userId, search, jwtToken } = req.body;
+
+      try
+      {
+        if( token.isExpired(jwtToken))
+        {
+          var r = {results: '', error:'The JWT is no longer valid', jwtToken: ''};
+          res.status(200).json(r);
+        }
+      }
+      catch(e)
+      {
+        console.log(e.message);
+      } 
+
+      var _search = search.trim();
+      var strengthResults, cardioResults;
+
+      // Find all cards with the specified search parameters and by ID      
+      // If the search parameter is empty or a string, find based on name
+      if (isNaN(_search) || _search === "")
+      {
+        strengthResults = await StrengthExercise.find({ExerciseName: {$regex: _search + '.*', $options: 'i'}, UserId: userId});
+        cardioResults = await CardioExercise.find({ExerciseName: {$regex: _search + '.*', $options: 'i', }, UserId: userId});
+      }
+      // If the search parameter is a number, find based on the following fields
+      else 
+      {
+        strengthResults = await StrengthExercise.find({$or: [
+                                                      {LowerRepRange: _search, UserId: userId},
+                                                      {UpperRepRange: _search, UserId: userId},
+                                                      {StrengthWeight: _search, UserId: userId}
+                                                    ]});
+        cardioResults = await CardioExercise.find({CardioTime: _search, UserId: userId});
+      }
+
+      var refreshedToken = null;
+      try
+      {
+        refreshedToken = token.refresh(jwtToken);
+      }
+      catch(e)
+      {
+        console.log(e.message);
+      }
+
+      var ret = { strengthResults:strengthResults, cardioResults:cardioResults, error: '', jwtToken: refreshedToken };
 
       res.status(200).json(ret);
     });
