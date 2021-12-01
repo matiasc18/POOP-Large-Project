@@ -57,7 +57,7 @@ function ForgotPassword()
         </form>
         <div class="d-grid mb-2">
           <span class="text-success text-center" id="doPasswordForgetResult"><small>{message}</small></span>
-          <a onClick={doPasswordForget} class="btn btn-primary rounded-pill btn-block btn-sm text-uppercase fw-bold btn-block">Forget Password</a>
+          <a onClick={doPasswordForget} class="btn btn-danger rounded-pill btn-block btn-sm text-uppercase fw-bold btn-block">Forget Password</a>
         </div>
       </div>
    );

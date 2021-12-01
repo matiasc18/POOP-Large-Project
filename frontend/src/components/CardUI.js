@@ -189,7 +189,7 @@ function CardUI()
         <div class="row">
           <div class="col-md-3">
           <label for="search" class="form-label"></label>
-          <button type="button" id="searchExerciseButton" class="btn btn-dark rounded-pill btn-login text-uppercase fw-bold my-3" 
+          <button type="button" id="searchExerciseButton" class="btn btn-success border-5 border-light rounded-pill btn-login text-uppercase fw-bold my-3" 
           onClick={searchExercise}> Search Exercise(s)</button><br />
           <input type="text" id="searchText" class="form-control rounded-pill" placeholder="Card To Search For" 
           ref={(c) => search = c} onChange={searchExercise}/>
@@ -199,25 +199,25 @@ function CardUI()
 
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-12 col-lg-8 mt-3">
-              <div class="card mb-5 mt-3 border-5 border-dark">
+              <div class="card mb-5 mt-3 border-5 border-success" style={{borderRadius:20}}>
                 <div class="card-header text-center p-3"><text class="display-6 text-center">Exercises</text></div>
-                <div class="card-body">
+                <div class="card-body ">
 
                   <div class="row">
                     <div class="col-md-6 p-3">
-                    <div class="card mb-5 mt-3 border-5 border-dark">
-                      <div class="card-header text-center p-3"><text class="display-6 text-center">Your Strength Exercises</text></div>
+                    <div class="card mb-5 mt-3 bg-danger border-3 border-success">
+                      <div class="card-header text-center p-3"><text class="display-6 text-light text-center">Your Strength Exercises</text></div>
                       </div>
                         <div id="strengthList">
                         {
                           strengthList.map(c => 
                             <div key={c._id}>
-                              <li class="list-group-item bg-light list-group-horizontal">
-                                <div class="card-header bg-light text-center p-3"><text class="display-6 text-center">{c.ExerciseName}</text></div>
+                              <li class="list-group-item border-3 border-success list-group-horizontal">
+                                <div class="card-header text-dark text-center p-3"><text class="display-6 text-center">{c.ExerciseName}</text></div>
                                   <div class="card-body">
                                   <div class="btn-group">
-                                    <button type="button" class="btn btn-danger btn-close dropdown mb-2" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu">
+                                    <button type="button" class="btn btn-danger btn-close btn-close-danger dropdown mb-2" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                    <ul class="dropdown-menu border-5 border-dark bg-dark text-light">
                                       <div class="text-center">
                                         <h5 class="text-center text-danger fw-bold"><small>Delete exercise?</small></h5>
                                         <text class="fw-bold"><small>You cannot undo this once its deleted.</small></text><br/>
@@ -227,13 +227,13 @@ function CardUI()
                                     </ul>
                                   </div>
                                     <ul class="list-group list-group">
-                                      <li class="list-group-item list-group-item-primary">
+                                      <li class="list-group-item list-group-item-danger">
                                         {'Strength Weight: ' + c.StrengthWeight + ' lbs.'}
                                       </li>
-                                      <li class="list-group-item list-group-item-primary">
+                                      <li class="list-group-item list-group-item-success">
                                         {'Lower Rep Range: ' + c.LowerRepRange + ' reps'}
                                       </li>
-                                      <li class="list-group-item list-group-item-primary">
+                                      <li class="list-group-item list-group-item-danger">
                                         {'Upper Rep Range: ' + c.UpperRepRange + ' reps'}
                                       </li>
                                     </ul>
@@ -244,16 +244,16 @@ function CardUI()
                         </div>
                     </div>
                     <div class="col-md-6 p-3">
-                    <div class="card mb-5 mt-3 border-5 border-dark">
-                      <div class="card-header text-center p-3"><text class="display-6 text-center">Your Cardio Exercises</text></div>
+                    <div class="card mb-5 mt-3 bg-success border-3 border-danger">
+                      <div class="card-header text-center p-3"><text class="display-6 text-light text-center">Your Cardio Exercises</text></div>
                       </div>
                       <ul class="list-group list-group-flush">
                         <div id="cardioList">
                         {
                           cardioList.map(c => 
                             <div key={c._id}>
-                              <li class="list-group-item bg-light list-group-horizontal">
-                                <div class="card-header bg-light text-center p-3"><text class="display-6 text-center">{c.ExerciseName}</text></div>
+                              <li class="list-group-item border-3 border-danger list-group-horizontal">
+                                <div class="card-header text-center p-3"><text class="display-6 text-center">{c.ExerciseName}</text></div>
                                   <div class="card-body">
                                   <div class="btn-group">
                                     <button type="button" class="btn btn-danger btn-close dropdown mb-2" data-bs-toggle="dropdown" aria-expanded="false"></button>
@@ -267,7 +267,7 @@ function CardUI()
                                     </ul>
                                   </div>
                                     <ul class="list-group list-group">
-                                      <li class="list-group-item list-group-item-primary">
+                                      <li class="list-group-item list-group-item-success">
                                         {'Cardio Time: ' + c.CardioTime + ' minutes'}
                                       </li>
                                     </ul>
@@ -283,7 +283,7 @@ function CardUI()
               </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4 mt-3">
-              <div class="card mb-5 mt-3 border-5 border-dark">
+              <div class="card mb-5 mt-3 border-5 border-success" style={{borderRadius:20}}>
               <div class="card-header text-center p-3"><text class="display-6 text-center">Add New Exercise</text></div>
                 <div class="card-body">
                 <form>
@@ -316,7 +316,7 @@ function CardUI()
                       <label for="strengthWeight" class="form-label"></label>
                         <div class="input-group mb-1">
                           <span class="input-group-text p-2">
-                            <i class="bi bi-person-badge-fill"></i>
+                          <i class="bi bi-arrows-expand"></i>
                           </span>
                           <input type="number" id="strengthWeight" class="form-control" placeholder="Weight (lbs.)" ref={(c) => 
                             strengthWeight = c}/>
@@ -328,7 +328,7 @@ function CardUI()
                       <label for="lowerRepRange" class="form-label"></label>
                         <div class="input-group mb-1">
                           <span class="input-group-text p-2">
-                            <i class="bi bi-person-badge-fill"></i>
+                          <i class="bi bi-caret-down-fill"></i>
                           </span>
                           <input type="number" id="lowerRepRange" class="form-control" placeholder="Min Reps" ref={(c) => 
                             lowerRepRange = c}/>
@@ -338,7 +338,7 @@ function CardUI()
                       <label for="upperRepRange" class="form-label"></label>
                         <div class="input-group mb-1">
                           <span class="input-group-text p-2">
-                            <i class="bi bi-envelope"></i>
+                          <i class="bi bi-caret-up-fill"></i>
                           </span>
                           <input type="number" id="upperRepRange" class="form-control" placeholder="Max Reps" ref={(c) => 
                             upperRepRange = c}/>
@@ -350,7 +350,7 @@ function CardUI()
                       <label for="cardioTime" class="form-label"></label>
                         <div class="input-group mb-1">
                           <span class="input-group-text p-2">
-                            <i class="bi bi-person-badge-fill"></i>
+                          <i class="bi bi-stopwatch-fill"></i>
                           </span>
                           <input type="number" id="cardioTime" class="form-control" placeholder="Cardio Time" ref={(c) => 
                             cardioTime = c}/>
@@ -359,7 +359,7 @@ function CardUI()
                     </div>
                     <div class="text-center">
                       <div class="d-grid mt-3">
-                      <button type="button" id="addExerciseButton" class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold" 
+                      <button type="button" id="addExerciseButton" class="btn btn-danger rounded-pill btn-login text-uppercase fw-bold" 
                         onClick={() => {addExercise();searchExercise();}}> Add Exercise </button><br />
                         <span id="loginResult">{message}</span>
                       </div>

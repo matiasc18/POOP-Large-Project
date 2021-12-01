@@ -40,5 +40,5 @@
 
 body {
   background: #00FF00;
-  background: linear-gradient(to right, #00FF00, #FF0000);
+  background: linear-gradient(to left, #FFFFFF, #FF0000);
 }
