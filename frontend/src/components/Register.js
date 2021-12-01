@@ -113,7 +113,7 @@ function Register()
         </div>
         <div class="text-center">
         <div class="d-grid">
-				<a onClick={doRegister} class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold">Register</a>
+				<a onClick={doRegister} class="btn btn-danger rounded-pill btn-login text-uppercase fw-bold">Register</a>
         <span id="registerResult">{message}</span>
         </div>
         </div>

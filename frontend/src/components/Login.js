@@ -86,7 +86,7 @@ function Login()
         <div class="text-center">
           <div class="d-grid mb-2">
             <span id="loginResult">{message}</span>
-				      <a onClick={doLogin} class="btn btn-primary rounded-pill btn-login text-uppercase fw-bold">Login</a>
+				      <a onClick={doLogin} class="btn btn-success rounded-pill btn-login text-uppercase fw-bold">Login</a>
           </div>
         </div>
 			</form>
