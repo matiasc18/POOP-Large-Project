@@ -7,6 +7,10 @@ const CardioExerciseSchema = new Schema({
   UserId: {
     type: String
   },
+  ExerciseType: {
+    type: String,
+    required: true
+  },
   ExerciseName: {
     type: String,
     required: true

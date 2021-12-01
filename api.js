@@ -375,14 +375,14 @@ exports.setApp = function ( app, client )
           if (exerciseType.toLowerCase() === "strength")
           {
               // Create new exercise
-              const newExercise = new StrengthExercise({UserId: userId, ExerciseName: exerciseName, LowerRepRange: lowerRepRange, 
+              const newExercise = new StrengthExercise({UserId: userId, ExerciseType: exerciseType.toLowerCase(), ExerciseName: exerciseName, LowerRepRange: lowerRepRange, 
                                                           UpperRepRange: upperRepRange, StrengthWeight: strengthWeight});
               newExercise.save();
           }
           else if (exerciseType.toLowerCase() === "cardio")
           {
               // Create new exercise
-              const newExercise = new CardioExercise({UserId: userId, ExerciseName: exerciseName, CardioTime: cardioTime});
+              const newExercise = new CardioExercise({UserId: userId, ExerciseType: exerciseType.toLowerCase(), ExerciseName: exerciseName, CardioTime: cardioTime});
               newExercise.save();
           }
         }
@@ -481,8 +481,8 @@ exports.setApp = function ( app, client )
 
     app.patch('/api/edit', async (req, res, next) => 
     {
-      // incoming: _id , exerciseName, lowerRepRange, upper
-      //           upperRepRange, strengthWeight, cardioTime, jwtToken
+      // incoming: _id , ExerciseName, LowerRepRange, UpperRepRange
+      //           StrengthWeight, CardioTime, jwtToken
       // outgoing: error, jwtToken
       
       const edits = req.body;
